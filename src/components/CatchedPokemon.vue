@@ -18,13 +18,6 @@
     </v-img>
     <div class="text-center md:text-left">
       <h2 class="text-lg capitalize">{{ item.name }}</h2>
-      <v-btn
-        color="primary"
-        :to="{ name: 'pokemon-detail', params: { id: item.id } }"
-      >
-        <v-icon left dark>mdi-eye</v-icon>
-        Show
-      </v-btn>
     </div>
   </v-card>
 </template>

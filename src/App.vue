@@ -6,7 +6,7 @@
       </v-btn>
       <v-spacer></v-spacer>
       <v-btn class="d-flex align-center" :to="{ name: 'my-pokemon' }" text>
-        My Pokemon
+        My Pokemon <b style="color: black;"> -{{ total }}-</b> <span></span>
       </v-btn>
       <v-spacer></v-spacer>
 
@@ -24,7 +24,17 @@
 </template>
 
 <script>
+import { mapGetters} from "vuex";
+
 export default {
   name: "App",
+  data() {
+    return {
+   
+    }
+  },
+  computed: {
+    ...mapGetters("pokemon", ["total"]),
+  }
 };
 </script>

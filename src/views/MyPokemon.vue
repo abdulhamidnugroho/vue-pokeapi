@@ -11,7 +11,7 @@
       <v-row>
         <template v-for="(item, index) in items">
           <v-col :lg="3" :md="3" :sm="6" :xs="6" :key="index">
-            <CatchedPokemon :item="item" :index="index" />
+            <CatchedPokemon :item="item" :index="index" :text="test" />
           </v-col>
         </template>
       </v-row>
@@ -75,6 +75,7 @@ export default {
     ]),
   },
   created() {
+    this.busy = true;
     if (this.favorites.length == 0) this.loaded = true;
     else this.getPokemon(this.currentOffset);
   },
@@ -87,13 +88,17 @@ export default {
     getPokemon() {
       this.emptyDisplayPokemon();
       let id = 0;
-      console.log(this.favorites);
+      // console.log(this.favorites);
       this.favorites.forEach(element => {
-        this.items.push(this.favorites.name);
+        // console.log(this.items);
         const types = [];
         const abilities = [];
         let favorited = false;
         Poke.pokemonDetailByName(element.toLowerCase()).then(response => {
+            this.items.push({
+                id: response.data.id, 
+                name: response.data.name
+            });
             response.data.types.forEach(element => {
             types.push(element.type.name);
           });
@@ -127,6 +132,8 @@ export default {
           }
         });
       });
+      this.busy = false;
+      console.log(this.items)
     },
   }
 };

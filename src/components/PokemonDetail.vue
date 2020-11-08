@@ -57,7 +57,7 @@
             <v-col :cols="12" :sm="6" :md="3" :lg="3" :xl="3">
               <v-card class="text-center">
                 <v-btn 
-                  v-if="favorited"
+                  v-if="!currentPokemon.favorited"
                   color="error"
                   @click="removeFavorite"
                 >
@@ -65,7 +65,7 @@
                   Release
                 </v-btn>
                 <v-btn 
-                  v-if="!favorited"
+                  v-if="!currentPokemon.favorited"
                   color="primary"
                   @click="favorite"
                 >
@@ -145,18 +145,18 @@ export default {
         .catch();
     },
     favorite() {
-      
       // this.$store.dispatch('pokemon/addToFavorite', this.pokemon.name);
       // this.$store.dispatch('pokemon/updateCurrentPokemonInFavorite', true);
-      
+      // console.log(this.pokemon.name);
       this.addFavorite(this.pokemon.name);
       this.updateCurrentPokemonFavorite(true);
+      // console.log(this.currentPokemon);
     },
     removeFavorite() {
-      this.$store.dispatch('pokemon/deleteInFavorite', this.pokemon.name);
-      this.$store.dispatch('pokemon/updateCurrentPokemonInFavorite', false);
-      // this.deleteFavorite(this.pokemon.name);
-      // this.updateCurrentPokemonFavorite(false);
+      // this.$store.dispatch('pokemon/deleteInFavorite', this.pokemon.name);
+      // this.$store.dispatch('pokemon/updateCurrentPokemonInFavorite', false);
+      this.deleteFavorite(this.pokemon.name);
+      this.updateCurrentPokemonFavorite(false);
     },
     back() {
       history.go(-1);
