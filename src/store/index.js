@@ -5,11 +5,11 @@ import pokemon from './pokemon'
 
 Vue.use(Vuex)
 
-export default function () {
+export default function (/* { ssrContext } */) {
   const Store = new Vuex.Store({
     modules: {
       pokemon
-    }
+    },
   })
 
   return Store

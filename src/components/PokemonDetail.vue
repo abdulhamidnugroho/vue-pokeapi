@@ -57,16 +57,20 @@
             <v-col :cols="12" :sm="6" :md="3" :lg="3" :xl="3">
               <v-card class="text-center">
                 <v-btn 
-                  color="primary"
-                >
-                  <v-icon>mdi-spotlight</v-icon>
-                  Catch
-                </v-btn>
-                <v-btn 
+                  v-if="favorited"
                   color="error"
+                  @click="removeFavorite"
                 >
                   <v-icon>mdi-chart-arc</v-icon>
                   Release
+                </v-btn>
+                <v-btn 
+                  v-if="!favorited"
+                  color="primary"
+                  @click="favorite"
+                >
+                  <v-icon>mdi-spotlight</v-icon>
+                  Catch
                 </v-btn>
               </v-card>
             </v-col>
@@ -83,7 +87,7 @@ import PokemonData from "@/components/PokemonData";
 import PokemonSprites from "@/components/PokemonSprites";
 import PokemonMoves from "@/components/PokemonMoves";
 import PokemonStats from "@/components/PokemonStats";
-// import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "PokemonDetail",
@@ -106,10 +110,11 @@ export default {
       pokemon: {},
       tab: null,
       searchMove: "",
+      favorited: false
     };
   },
   computed: {
-    // ...mapGetters("pokemon", ["currentPokemon", "favorites"]),
+    ...mapGetters("pokemon", ["currentPokemon", "favorites"]),
     moves() {
       return this.pokemon.moves.filter((move) => {
         return (
@@ -120,34 +125,41 @@ export default {
     },
   },
   methods: {
-    // ...mapActions("pokemon", [
-    //   "addFavorite",
-    //   "deleteFavorite",
-    //   "updateCard",
-    //   "updateCurrentPokemonFavorite",
-    //   "updateCurrentPokemon",
-    // ]),
-    // favorite() {
-    //   this.addFavorite(this.currentPokemon.name);
-    //   this.updateCurrentPokemonFavorite(true);
-    // },
-    // removeFavorite() {
-    //   this.deleteFavorite(this.currentPokemon.name);
-    //   this.updateCurrentPokemonFavorite(false);
-    // },
-    back() {
-      history.go(-1);
-    },
+    ...mapActions("pokemon", [
+      "addFavorite",
+      "deleteFavorite",
+      "updateCard",
+      "updateCurrentPokemonFavorite",
+      "updateCurrentPokemon",
+    ]),
     getData() {
       this.$api
         .pokemon(this.id)
         .then((response) => {
           this.pokemon = response.data;
+          // console.log(this.pokemon.name);
           setTimeout(() => {
             this.busy = false;
           }, 1000);
         })
         .catch();
+    },
+    favorite() {
+      
+      // this.$store.dispatch('pokemon/addToFavorite', this.pokemon.name);
+      // this.$store.dispatch('pokemon/updateCurrentPokemonInFavorite', true);
+      
+      this.addFavorite(this.pokemon.name);
+      this.updateCurrentPokemonFavorite(true);
+    },
+    removeFavorite() {
+      this.$store.dispatch('pokemon/deleteInFavorite', this.pokemon.name);
+      this.$store.dispatch('pokemon/updateCurrentPokemonInFavorite', false);
+      // this.deleteFavorite(this.pokemon.name);
+      // this.updateCurrentPokemonFavorite(false);
+    },
+    back() {
+      history.go(-1);
     },
     onSearchMoves(e) {
       this.searchMove = e;

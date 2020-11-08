@@ -3,12 +3,14 @@ import App from "./App.vue";
 import Router from "vue-router";
 import {
   Quasar,
-  LocalStorage
+  LocalStorage,
+  SessionStorage
 } from 'quasar'
 
 Vue.use(Quasar, {
   plugins: {
-    LocalStorage
+    LocalStorage,
+    SessionStorage
   }
 })
 
@@ -19,6 +21,8 @@ Vue.use(API);
 
 import router from "@/router";
 
+import store from './store';
+
 Vue.config.productionTip = false;
 
 import "./main.css";
@@ -27,5 +31,6 @@ import vuetify from "./plugins/vuetify";
 new Vue({
   vuetify,
   router,
+  store,
   render: (h) => h(App),
 }).$mount("#app");

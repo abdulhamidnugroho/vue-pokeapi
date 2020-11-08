@@ -103,6 +103,7 @@ export default {
           });
           this.loading = false;
           this.busy = false;
+          // console.log(this.items);
         })
         // eslint-disable-next-line no-unused-vars
         .catch((err) => {

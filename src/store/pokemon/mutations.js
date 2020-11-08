@@ -14,18 +14,15 @@ export function updateCurrentPokemon(state, payload) {
 export function updateCurrentPokemonFavorite(state, payload) {
   state.currentPokemon.favorited = payload
 }
-export function updateMobile(state, payload) {
-  state.mobile = payload
-}
 export function addFavorite(state, name) {
   // add to local storage
   let favoritesTemp = state.favorites
   favoritesTemp.push(name)
   LocalStorage.set('favorites', favoritesTemp)
-
+  // console.log(state)
   //add to pokemons state
-  let index = state.pokemons.findIndex((obj => obj.name == name))
-  state.pokemons[index].favorited = true
+  // let index = state.pokemons.findIndex((obj => obj.name == name))
+  // state.pokemons[index].favorited = true
 }
 export function deleteFavorite(state, name) {
   // remove from local storage

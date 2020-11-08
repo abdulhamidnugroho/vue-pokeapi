@@ -8,10 +8,5 @@ module.exports = {
       importStrategy: 'kebab',
       rtlSupport: false
     }
-  },
-
-  transpileDependencies: [
-    'vuetify',
-    'quasar'
-  ]
+  }
 }

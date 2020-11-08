@@ -6,6 +6,7 @@ export function pokemons(state) {
   return sortedPokemons
 }
 export function displayPokemons(state) {
+  // console.log(state);
   const sortedPokemons = [...state.displayPokemons].sort(function (a, b) {
     return a.id - b.id;
   });
