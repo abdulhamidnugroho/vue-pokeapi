@@ -75,7 +75,6 @@ export default {
     ]),
   },
   created() {
-    this.busy = true;
     if (this.favorites.length == 0) this.loaded = true;
     else this.getPokemon(this.currentOffset);
   },
@@ -88,6 +87,11 @@ export default {
     getPokemon() {
       this.emptyDisplayPokemon();
       let id = 0;
+      if (this.favorites.length == 0) {
+        this.busy = false
+      } else {
+        this.busy = true
+      }
       // console.log(this.favorites);
       this.favorites.forEach(element => {
         // console.log(this.items);
@@ -132,7 +136,7 @@ export default {
           }
         });
       });
-      this.busy = false;
+
       console.log(this.items)
     },
   }
