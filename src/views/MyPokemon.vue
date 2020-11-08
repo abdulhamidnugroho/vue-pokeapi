@@ -87,11 +87,7 @@ export default {
     getPokemon() {
       this.emptyDisplayPokemon();
       let id = 0;
-      if (this.favorites.length == 0) {
-        this.busy = false
-      } else {
-        this.busy = true
-      }
+
       // console.log(this.favorites);
       this.favorites.forEach(element => {
         // console.log(this.items);
@@ -137,7 +133,7 @@ export default {
         });
       });
 
-      console.log(this.items)
+      // console.log(this.items)
     },
   }
 };
